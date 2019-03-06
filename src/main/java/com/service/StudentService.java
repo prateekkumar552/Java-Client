@@ -37,14 +37,21 @@ public class StudentService {
 		return Arrays.asList(response.getBody());
 	}
 	
-	public  boolean deleteStudent(int id) {
-		temp.delete("http://localhost:8081/MyRestDemo/student/deletestudent/"+id);
-		return true;
+	public  void deleteStudent(Integer rollno) {
+		System.out.println("I am in delete");
+		temp.delete("http://localhost:8081/MyRestDemo/student/deletestudent/"+rollno);
+		
 	}
 	
-	public  boolean updateStudent(Student stu,int id) {
+	public  void updateStudent(Student stu) {
+		//temp.put("http://localhost:8081/MyRestDemo/student/updatestudent", stu);
 		temp.put("http://localhost:8081/MyRestDemo/student/updatestudent", stu);
-		return true;
+		
+	}
+	
+	public Student getByRollno(int rollno) {
+		ResponseEntity<Student> response = temp.getForEntity( "http://localhost:8081/MyRestDemo/student/get/"+rollno, Student.class);
+		return response.getBody();
 	}
 
 }

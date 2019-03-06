@@ -34,8 +34,9 @@
 			<td>${student.rollno}</td>
 			<td>${student.name}</td>
 			<td>${student.city}</td>
-			<%-- <td><a href="<c:url value='/edit/${student.id}' />" >Edit</a></td> --%>
-			<td><a href="<c:url value="/delete"/>" >Delete</a></td> 
+			<td><a href="<c:url value='/edit/${student.rollno}' />" >Edit</a></td>
+			<td><a href="<c:url value='/delete/${student.rollno}'/>" >Delete</a></td>
+			
 		</tr>
 	</c:forEach>
 	</table>
