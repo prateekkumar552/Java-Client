@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -109,12 +110,21 @@ public class LoginController {
 		return "welcome";
 	}
 	
-	@RequestMapping(value="/edit/{rollno}")
+	/*@RequestMapping(value="/edit/{rollno}")
 	public String updateStudent(@ModelAttribute("Student")Student stu, BindingResult result, Model m) {
 		System.out.println("I am in updateStudent()");
 		Student st=service.getByRollno(stu.getRollno());
 		m.addAttribute("Student", st);
 		System.out.println("updateform");
+		return "update";
+		
+	}*/
+	
+	@RequestMapping(value="/edit/{rollno}")
+	public String updateStudent(@PathVariable("rollno") int id, Model model) {
+		System.out.println("I am in updateStudent()");
+		model.addAttribute("student", this.service.getStudentById(id));
+		model.addAttribute("liststudent", this.service.getAllStudent());
 		return "update";
 		
 	}
@@ -138,5 +148,14 @@ public class LoginController {
 		System.out.println("I am in edit save");
 		this.service.updateStudent(stu);
 		return "redirect:/showall";
+	}
+	
+	
+	@RequestMapping(value="/xls")
+	public String getXLS(HttpServletResponse res, Model model) {
+		System.out.println("ExcelSheet Download");
+		service.getXLS(res);
+		return "redirect:/showall";
+		
 	}
 }

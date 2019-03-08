@@ -42,6 +42,9 @@
 	</table>
 </c:if>
 </form:form>
+<form:form action="xls" method="get">
+<input type="submit" value="Download">
+</form:form>
 <%-- <h1 align="center">Student Information</h1>
  <ul><c:forEach var="cou" items="${AL}">
 <li><h2>${cou}</h2>

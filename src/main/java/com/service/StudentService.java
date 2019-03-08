@@ -3,10 +3,13 @@ package com.service;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
 
 import com.model.Student;
@@ -32,8 +35,8 @@ public class StudentService {
 		return (Boolean)response.getBody();
 	}
 	
-	public  List<Student> getStudentById(int id){
-		ResponseEntity<Student[]> response = temp.getForEntity("http://localhost:8081/MyRestDemo/student/"+id, Student[].class);
+	public  List<Student> getStudentById(int rollno){
+		ResponseEntity<Student[]> response = temp.getForEntity("http://localhost:8081/MyRestDemo/student/"+rollno, Student[].class);
 		return Arrays.asList(response.getBody());
 	}
 	
@@ -52,6 +55,12 @@ public class StudentService {
 	public Student getByRollno(int rollno) {
 		ResponseEntity<Student> response = temp.getForEntity( "http://localhost:8081/MyRestDemo/student/get/"+rollno, Student.class);
 		return response.getBody();
+	}
+	
+	public Student getXLS(HttpServletResponse res) {
+		ResponseEntity<Student> response=temp.getForEntity("http://localhost:8081/MyRestDemo/student/download", Student.class);
+		return response.getBody();
+		
 	}
 
 }
